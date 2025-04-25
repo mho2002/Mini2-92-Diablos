@@ -69,6 +69,6 @@ public class PaymentService {
         else if (payment.getAmount() == 0) {
             return false;
         }
-        else return payment.getTrip() != null;
-    }
+        else return payment.getTrip() != null;
+    }
 }

@@ -68,6 +68,6 @@ public class Customer {
     }
 
     public void setTrips(List<Trip> trips) {
-        this.trips = trips;
-    }
+        this.trips = trips;
+    }
 }

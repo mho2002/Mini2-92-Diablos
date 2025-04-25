@@ -15,5 +15,5 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     // 🔹 Find payments with an amount above a certain threshold
     @Query("SELECT p FROM Payment p WHERE p.amount > :threshold")
-    List<Payment> findByAmountGreaterThan(@Param("threshold") double threshold);
+    List<Payment> findByAmountGreaterThan(@Param("threshold") double threshold);
 }

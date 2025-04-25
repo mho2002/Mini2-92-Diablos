@@ -65,6 +65,6 @@ public class Payment {
     }
 
     public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+        this.trip = trip;
+    }
 }

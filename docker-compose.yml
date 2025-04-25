@@ -1,28 +1,69 @@
+version: '3.8'
+
 services:
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: m1234
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend  # Attach to backend network
+
   mongodb:
     image: mongo
     container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: rootuser
+      MONGO_INITDB_ROOT_PASSWORD: rootpass
     ports:
       - 27017:27017
     volumes:
-      - data:/data
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootuser
-      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+      - mongo_data:/data/db
+    networks:
+      - backend  # Attach to backend network
+
   mongo-express:
     image: mongo-express
     container_name: mongo-express
     restart: always
     depends_on:
-      - mongodb  # Ensures MongoDB starts before mongo-express
+      - mongodb
     ports:
       - 8081:8081
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=rootuser
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=rootpass
-      - ME_CONFIG_MONGODB_SERVER=mongodb
+      ME_CONFIG_MONGODB_ADMINUSERNAME: rootuser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rootpass
+      ME_CONFIG_MONGODB_SERVER: mongodb
+    networks:
+      - backend  # Attach to backend network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: springboot-app
+    depends_on:
+      - postgres
+      - mongodb
+    ports:
+      - 8080:8080
+    networks:
+      - backend  # Attach to backend network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/demo  # Correct PostgreSQL URL
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: m1234
+      SPRING_DATA_MONGODB_URI: mongodb://rootuser:rootpass@mongodb:27017/demo?authSource=admin  # Correct MongoDB URL
+
 volumes:
-  data: {}
+  postgres_data:
+  mongo_data:
+
 networks:
-  default:
-    name: mongodb_network
+  backend:  # Define backend network
