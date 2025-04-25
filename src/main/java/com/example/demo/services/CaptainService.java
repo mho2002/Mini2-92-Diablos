@@ -21,24 +21,29 @@ public class CaptainService {
 
     public Captain addCaptain(Captain captain)
     {
-
+        return captainRepository.save(captain);
     }
 
     public List<Captain> getAllCaptains()
     {
-
+        return captainRepository.findAll();
     }
 
     public Captain getCaptainById(Long id)
     {
+        if (captainRepository.findById(id).isPresent())
+            return captainRepository.findById(id).get();
+        else return null;
     }
 
     public List<Captain> getCaptainsByRating(Double ratingThreshold)
     {
+
+        return captainRepository.findCaptainsWithRatingAbove(ratingThreshold);
     }
 
     public Captain getCaptainByLicenseNumber(String licenseNumber)
     {
-
+        return captainRepository.findByLicenseNumber(licenseNumber);
     }
 }
