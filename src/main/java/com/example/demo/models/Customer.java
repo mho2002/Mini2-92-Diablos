@@ -22,6 +22,15 @@ public class Customer {
     @ToString.Exclude
     private List<Trip> trips;
 
+    public Customer(String name, String email, String phoneNumber) {
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+
+    }
+
+    public Customer() {}
+
     public long getId() {
         return id;
     }
@@ -59,6 +68,6 @@ public class Customer {
     }
 
     public void setTrips(List<Trip> trips) {
-        this.trips = trips;
-    }
+        this.trips = trips;
+    }
 }
