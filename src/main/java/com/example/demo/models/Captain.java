@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.List;
 
 @Entity
-@Table(name = "Captains")
+@Table(name = "captains")
 public class Captain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment strategy for 'long' id
@@ -20,6 +20,14 @@ public class Captain {
     @OneToMany(mappedBy = "captain", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Trip> trips;
+
+
+    public Captain(String name, String licenseNumber, double avgRatingScore) {
+        this.name = name;
+        this.licenseNumber = licenseNumber;
+        this.avgRatingScore = avgRatingScore;
+    }
+    public Captain() {}
 
     public long getId() {
         return id;
