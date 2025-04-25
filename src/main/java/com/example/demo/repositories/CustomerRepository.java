@@ -15,5 +15,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     //Find customers by phone number prefix (e.g. starts with 010)
     @Query("SELECT c FROM Customer c WHERE c.phoneNumber LIKE :prefix%")
-    List<Customer> findByPhonePrefix(@Param("prefix") String prefix);
+    List<Customer> findByPhonePrefix(@Param("prefix") String prefix);
 }
