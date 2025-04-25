@@ -15,6 +15,18 @@ public class Rating {
     private String comment;
     private LocalDateTime ratingDate;
 
+    public Rating(long entityId, String entityType, Integer score, String comment, LocalDateTime ratingDate) {
+        super();
+        this.entityId = entityId;
+        this.entityType = entityType;
+        this.score = score;
+        this.comment = comment;
+        this.ratingDate = ratingDate;
+
+    }
+
+    public Rating() {}
+
     public String getId() {
         return id;
     }
