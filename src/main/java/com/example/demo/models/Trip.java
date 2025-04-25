@@ -29,6 +29,15 @@ public class Trip {
     @OneToOne(mappedBy = "trip")
     private Payment payment;
 
+    public Trip(LocalDateTime tripDate, String origin, String destination, double tripCost) {
+        this.tripDate = tripDate;
+        this.origin = origin;
+        this.destination = destination;
+        this.tripCost = tripCost;
+    }
+
+    public Trip() {}
+
     public long getId() {
         return id;
     }
