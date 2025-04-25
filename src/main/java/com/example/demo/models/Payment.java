@@ -19,6 +19,15 @@ public class Payment {
     @JoinColumn(name = "trip_id" , referencedColumnName = "id")
     private Trip trip;
 
+    public Payment(double amount, String paymentMethod, boolean paymentStatus) {
+        this.amount = amount;
+        this.paymentMethod = paymentMethod;
+        this.paymentStatus = paymentStatus;
+
+    }
+
+    public Payment() {}
+
     public long getId() {
         return id;
     }
@@ -56,6 +65,6 @@ public class Payment {
     }
 
     public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
+        this.trip = trip;
+    }
 }
